@@ -10,4 +10,6 @@
     <string name="menu_user">Fichas de Inscripción</string>
     <string name="menu_gallery">Empresas</string>
     <string name="menu_slideshow">Servicios</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

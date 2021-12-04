@@ -22,4 +22,13 @@
         android:name="com.dibujo.m_business.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_tipodocumentos"
+        android:name="com.dibujo.m_business.ui.tiposdocumentos.TiposDocumentosFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_tiposdocumentos" />
+
+
+
 </navigation>
