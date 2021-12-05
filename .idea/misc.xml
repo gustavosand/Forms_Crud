@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/drawable/noborder.xml" value="0.2203125" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/drawable/roundborder.xml" value="0.39453125" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/add_user.xml" value="0.33" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/fragment_slideshow.xml" value="0.18432971014492755" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/fragment_tipodoc.xml" value="0.33" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/fragment_user.xml" value="0.33" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/item_button_group.xml" value="0.33" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/item_user.xml" value="0.33" />
+        <entry key="..\:/Carpetas_Proyectos/Proyectos_AndroidStudio/Users_Crud/app/src/main/res/layout/nav_header_main.xml" value="0.18432971014492755" />
         <entry key="..\:/SEMESTRE_8/IDNP_LAB/MBusiness/app/src/main/res/drawable/add.xml" value="0.1398148148148148" />
         <entry key="..\:/SEMESTRE_8/IDNP_LAB/MBusiness/app/src/main/res/layout/activity_main.xml" value="0.2015625" />
         <entry key="..\:/SEMESTRE_8/IDNP_LAB/MBusiness/app/src/main/res/layout/add_user.xml" value="0.33" />
