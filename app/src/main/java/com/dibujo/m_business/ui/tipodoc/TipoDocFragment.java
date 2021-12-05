@@ -28,11 +28,11 @@ public class TipoDocFragment extends Fragment {
         binding = FragmentTipodocBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textTipodoc;
+        //final TextView textView = binding.textTipodoc;
         tipodocViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                //textView.setText(s);
             }
         });
         return root;

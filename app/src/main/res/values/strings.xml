@@ -11,5 +11,5 @@
     <string name="menu_gallery">Empresas</string>
     <string name="menu_slideshow">Servicios</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="menu_tipoDoc">Tipos Documentos</string>
+    <string name="menu_tipoDoc">Tipos de Documento</string>
 </resources>
