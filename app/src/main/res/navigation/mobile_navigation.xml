@@ -24,10 +24,10 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_tipodocumentos"
-        android:name="com.dibujo.m_business.ui.tiposdocumentos.TiposDocumentosFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_tiposdocumentos" />
+        android:id="@+id/nav_tipodoc"
+        android:name="com.dibujo.m_business.ui.tipodoc.TipoDocFragment"
+        android:label="@string/menu_tipoDoc"
+        tools:layout="@layout/fragment_tipodoc" />
 
 
 
