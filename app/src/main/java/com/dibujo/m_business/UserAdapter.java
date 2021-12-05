@@ -36,16 +36,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         User user = list.get(position);
         holder.codT.setText(user.getCode());
         holder.nameT.setText(user.getName());
-        holder.deleteUserB.setOnClickListener(view -> {
+        /*holder.deleteUserB.setOnClickListener(view -> {
             list.remove(user);
             notifyDataSetChanged();
-        });
+        });*/
 
-        holder.editUserB.setOnClickListener(view -> {
+        /*holder.editUserB.setOnClickListener(view -> {
             editUser(user);
+            System.out.println("Se quiere editar");
 
             notifyDataSetChanged();
-        });
+        });*/
 
     }
 
@@ -67,9 +68,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
             nameT = itemView.findViewById(R.id.user_name);
             codT = itemView.findViewById(R.id.user_code);
-            deleteUserB = itemView.findViewById(R.id.deleteUser_button);
-            editUserB = itemView.findViewById(R.id.editUser_button);
+            //deleteUserB = itemView.findViewById(R.id.deleteUser_button);
+            //editUserB = itemView.findViewById(R.id.editUser_button);
 
         }
     }
+
 }
