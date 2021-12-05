@@ -38,6 +38,7 @@
             android:orientation="horizontal" >
 
             <EditText
+                android:id="@+id/boxSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -46,11 +47,12 @@
                 android:padding="8dp"
                 android:singleLine="true" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="5dp"
-            android:src="@android:drawable/ic_menu_search" />
+            <ImageView
+                android:id="@+id/buttonSearch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:src="@android:drawable/ic_menu_search" />
     </LinearLayout>
 
 
