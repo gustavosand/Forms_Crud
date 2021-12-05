@@ -18,8 +18,8 @@
             android:title="@string/menu_slideshow" />
 
         <item
-            android:id="@+id/nav_tipodocumentos"
-            android:icon="@drawable/icons8_servicio_50"
+            android:id="@+id/nav_tipodoc"
+            android:icon="@drawable/icons8_tarjeta_de_identidad_electr_nica_32"
             android:title="@string/menu_slideshow" />
 
     </group>
