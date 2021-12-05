@@ -21,7 +21,8 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar usuario" />
+                android:text="Agregar usuario"
+                android:textColor="#0C0C0C" />
 
             <EditText
                 android:id="@+id/addUser_name"
@@ -29,21 +30,48 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Nombres" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextTextLastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".50"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Apellido" />
+
+                <EditText
+                    android:id="@+id/editTextTextLastName2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".50"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:hint="Apellido" />
+
+            </LinearLayout>
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/addUser_cargo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Name" />
+                android:hint="Cargo" />
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="Correo"
                 android:ems="10"
+                android:hint="Correo"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -51,19 +79,75 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="Celular"
                 android:inputType="phone" />
 
-            <Button
-                android:id="@+id/addUser_save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Guardar" />
 
-            <Button
-                android:id="@+id/addUser_cancel_button"
+            <TextView
+                android:id="@+id/textView4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cancelar" />
+                android:layout_marginLeft="00dp"
+                android:layout_marginRight="0dp"
+                android:text="Seleccionar Servicio:"
+                android:textColor="#0C0C0C" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="00dp"
+                android:layout_marginRight="00dp"
+                android:layout_marginBottom="0dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="00dp"
+                android:layout_marginRight="0dp"
+                android:text="Seleccionar Empresa:"
+                android:textColor="#0C0C0C" />
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="00dp"
+                android:layout_marginRight="00dp"
+                android:layout_marginBottom="0dp" />
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="Descripción"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:hint="Descripción"
+                android:lines="2" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/addUser_save_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".50"
+                    android:text="Guardar" />
+
+                <Button
+                    android:id="@+id/addUser_cancel_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".50"
+                    android:text="Cancelar" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
