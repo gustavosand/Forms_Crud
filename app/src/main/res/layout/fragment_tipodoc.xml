@@ -27,7 +27,7 @@ android:layout_height="match_parent"
 tools:context=".ui.tipodoc.TipoDocFragment">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/addUser_button"
+        android:id="@+id/addDocumentType_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
@@ -95,9 +95,6 @@ tools:context=".ui.tipodoc.TipoDocFragment">
             android:layout_height="match_parent" />
 
     </LinearLayout>
-
-
-
 
 
 >>>>>>> origin/main

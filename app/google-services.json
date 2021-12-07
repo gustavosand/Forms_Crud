@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "368089723312",
+    "firebase_url": "https://m-business-1595e-default-rtdb.firebaseio.com",
+    "project_id": "m-business-1595e",
+    "storage_bucket": "m-business-1595e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368089723312:android:5b33c93cd3cf0fbfb22675",
+        "android_client_info": {
+          "package_name": "com.dibujo.m_business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368089723312-8l5ap1ehak2345s48mforp8k221fsdap.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSaTGuTPUoyh7MsoKfnkntGFWSOYgQ_TY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368089723312-8l5ap1ehak2345s48mforp8k221fsdap.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
