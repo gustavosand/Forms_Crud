@@ -1,14 +1,14 @@
-package com.dibujo.m_business.ui.gallery;
+package com.dibujo.m_business.ui.company;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class CompanyViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public CompanyViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
     }

@@ -1,4 +1,4 @@
-package com.dibujo.m_business.ui.tipodoc;
+package com.dibujo.m_business.ui.service;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -15,15 +15,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
-import com.dibujo.m_business.database.DocumentType;
-import com.dibujo.m_business.database.adapters.DocumentTypeAdapter;
-import com.dibujo.m_business.databinding.FragmentTipodocBinding;
+import com.dibujo.m_business.database.Service;
+import com.dibujo.m_business.database.Service;
+import com.dibujo.m_business.database.adapters.ServiceAdapter;
+import com.dibujo.m_business.databinding.FragmentServiceBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,10 +37,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TipoDocFragment extends Fragment {
+public class ServiceFragment extends Fragment {
 
-    private TipoDocViewModel tipodocViewModel;
-    private FragmentTipodocBinding binding;
+    private ServiceViewModel serviceViewModel;
+    private FragmentServiceBinding binding;
     private AlertDialog.Builder aBuilder;
     private AlertDialog dialog;
     private Spinner sp;
@@ -46,21 +49,20 @@ public class TipoDocFragment extends Fragment {
 
     FirebaseDatabase db;
     RecyclerView recyclerView;
-    DocumentTypeAdapter documentTAdapter;
-    ArrayList<DocumentType> listDocumentType;
+    ServiceAdapter serviceAdapter;
+    ArrayList<Service> listService;
     String idCount;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        tipodocViewModel =
-                new ViewModelProvider(this).get(TipoDocViewModel.class);
+        serviceViewModel =
+                new ViewModelProvider(this).get(ServiceViewModel.class);
 
-        binding = FragmentTipodocBinding.inflate(inflater, container, false);
+        binding = FragmentServiceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         db = FirebaseDatabase.getInstance();
 
-        binding.addDocumentTypeButton.setOnClickListener(view -> {
+        binding.addServiceButton.setOnClickListener(view -> {
             createAddDialog();
         });
 
@@ -80,24 +82,24 @@ public class TipoDocFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
-        recyclerView = binding.tipodocRecyclerview;
+        recyclerView = binding.serviceRecyclerview;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        listDocumentType = new ArrayList<>();
-        documentTAdapter = new DocumentTypeAdapter(getContext(), listDocumentType);
-        recyclerView.setAdapter(documentTAdapter);
+        listService = new ArrayList<>();
+        serviceAdapter = new ServiceAdapter(getContext(), listService);
+        recyclerView.setAdapter(serviceAdapter);
 
         //Firebase code here
-        db.getReference("documento_identidad").addValueEventListener(new ValueEventListener() {
+        db.getReference("servicio").addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listDocumentType.clear();
+                listService.clear();
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    DocumentType dt = ds.getValue(DocumentType.class);
-                    if(dt.getStatus().equals("*"))  continue;//ignore element whit status remove
-                    dt.setId(ds.getKey());
-                    listDocumentType.add(dt);
+                    Service s = ds.getValue(Service.class);
+                    if(s.getStatus().equals("*"))  continue;//ignore element whit status remove
+                    s.setId(ds.getKey());
+                    listService.add(s);
                 }
                 order(sp.getSelectedItemPosition());
             }
@@ -108,7 +110,7 @@ public class TipoDocFragment extends Fragment {
             }
         });
         //id
-        db.getReference("idCont").child("documento_identidad").addValueEventListener(new ValueEventListener() {
+        db.getReference("idCont").child("servicio").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 idCount = snapshot.getValue(String.class);
@@ -132,28 +134,28 @@ public class TipoDocFragment extends Fragment {
 
     public void createAddDialog(){
         aBuilder = new AlertDialog.Builder(getContext());
-        View addDocumentTypePopup = getLayoutInflater().inflate(R.layout.add_document, null);
-        aBuilder.setView(addDocumentTypePopup);
+        View addServicePopup = getLayoutInflater().inflate(R.layout.add_service, null);
+        aBuilder.setView(addServicePopup);
         aBuilder.setCancelable(false);
         dialog = aBuilder.create();
         dialog.show();
-        addDocumentTypePopup.findViewById(R.id.addDocumentType_save_button).setOnClickListener(view -> {
-            nameET = addDocumentTypePopup.findViewById(R.id.addDocumentType_name);
-            statusCB = addDocumentTypePopup.findViewById(R.id.addCompany_status);
-            DocumentType nDT = new DocumentType();
-            nDT.setName(nameET.getText().toString());
+        addServicePopup.findViewById(R.id.addService_save_button).setOnClickListener(view -> {
+            nameET = addServicePopup.findViewById(R.id.addService_name);
+            statusCB = addServicePopup.findViewById(R.id.addService_status);
+            Service nS = new Service();
+            nS.setName(nameET.getText().toString());
             if(statusCB.isChecked()){
-                nDT.setStatus("Activo");
+                nS.setStatus("Activo");
             }else{
-                nDT.setStatus("Inactivo");
+                nS.setStatus("Inactivo");
             }
-            listDocumentType.add(nDT);
+            listService.add(nS);
             //Firebase save here
-            add(nDT);
+            add(nS);
             //end save
             dialog.dismiss();
         });
-        addDocumentTypePopup.findViewById(R.id.addDocumentType_cancel_button).setOnClickListener(view -> {
+        addServicePopup.findViewById(R.id.addService_cancel_button).setOnClickListener(view -> {
             dialog.dismiss();
         });
 
@@ -163,59 +165,59 @@ public class TipoDocFragment extends Fragment {
     public void order(int i) {
         switch (i) {
             case 0:
-                Collections.sort(listDocumentType, DocumentType.docNameAZComparator);
+                Collections.sort(listService, Service.serviceNameAZComparator);
                 break;
             case 1:
-                Collections.sort(listDocumentType, DocumentType.docNameZAComparator);
+                Collections.sort(listService, Service.serviceNameZAComparator);
                 break;
             case 2:
-                Collections.sort(listDocumentType, DocumentType.docStatusComparator);
+                Collections.sort(listService, Service.serviceStatusComparator);
                 break;
 
         }
-        documentTAdapter.notifyDataSetChanged();
+        serviceAdapter.notifyDataSetChanged();
     }
-    public void createEditDialog(DocumentType dt){
+    public void createEditDialog(Service s){
         aBuilder = new AlertDialog.Builder(getContext());
-        View addDocumentTypePopup = getLayoutInflater().inflate(R.layout.add_document, null);
-        aBuilder.setView(addDocumentTypePopup);
+        View addServicePopup = getLayoutInflater().inflate(R.layout.add_service, null);
+        aBuilder.setView(addServicePopup);
         aBuilder.setCancelable(false);
         dialog = aBuilder.create();
         dialog.show();
-        nameET = addDocumentTypePopup.findViewById(R.id.addDocumentType_name);
-        statusCB = addDocumentTypePopup.findViewById(R.id.addCompany_status);
-        addDocumentTypePopup.findViewById(R.id.addDocumentType_save_button).setOnClickListener(view -> {
-            dt.setName(nameET.getText().toString());
-            if(statusCB.isChecked())    dt.setStatus("Activo");
-            else    dt.setStatus("Inactivo");
+        nameET = addServicePopup.findViewById(R.id.addService_name);
+        statusCB = addServicePopup.findViewById(R.id.addService_status);
+        addServicePopup.findViewById(R.id.addService_save_button).setOnClickListener(view -> {
+            s.setName(nameET.getText().toString());
+            if(statusCB.isChecked())    s.setStatus("Activo");
+            else    s.setStatus("Inactivo");
             //Firebase edit here
-            update(dt);
+            update(s);
             //end edit save
             dialog.dismiss();
         });
-        addDocumentTypePopup.findViewById(R.id.addDocumentType_cancel_button).setOnClickListener(view -> {
+        addServicePopup.findViewById(R.id.addService_cancel_button).setOnClickListener(view -> {
             dialog.dismiss();
         });
-
-        nameET.setText(dt.getName());
-        statusCB.setChecked(dt.getStatus().equals("Activo"));
+        //Set values of database into edit form
+        nameET.setText(s.getName());
+        statusCB.setChecked(s.getStatus().equals("Activo"));
 
     }
 
-    public void update(DocumentType dt){
-        db.getReference("documento_identidad").child(dt.getId()).updateChildren(dt.toMap());
+    public void update(Service s){
+        db.getReference("servicio").child(s.getId()).updateChildren(s.toMap());
     }
 
-    public void add(DocumentType dt){
-        dt.setId("D"+generateId());
-        //db.getReference("documento_identidad").push().setValue(dt.toMap());
-        db.getReference("documento_identidad").child(dt.getId()).setValue(dt.toMap());
+    public void add(Service s){
+        s.setId("S"+generateId());
+        //db.getReference("servicio").push().setValue(s.toMap());
+        db.getReference("servicio").child(s.getId()).setValue(s.toMap());
     }
 
-    public void delete(DocumentType dt){
-        db.getReference("documento_identidad").child(dt.getId()).updateChildren(dt.toMap());
+    public void delete(Service s){
+        db.getReference("servicio").child(s.getId()).updateChildren(s.toMap());
         //This is a physical remove
-        //db.getReference("documento_identidad").child(dt.getId()).removeValue();
+        //db.getReference("servicio").child(s.getId()).removeValue();
     }
 
     public String generateId(){
@@ -224,7 +226,7 @@ public class TipoDocFragment extends Fragment {
         idInt++;
         String idS = "000"+idInt;
         Map<String, Object> idMap = new HashMap<>();
-        idMap.put("documento_identidad", idInt+"");
+        idMap.put("servicio", idInt+"");
         db.getReference("idCont").updateChildren(idMap);
         return idS.substring(idS.length()-3);
     }
@@ -233,23 +235,23 @@ public class TipoDocFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         super.onContextItemSelected(item);
-        DocumentType dt = listDocumentType.get(item.getGroupId());
+        Service s = listService.get(item.getGroupId());
         switch (item.getItemId()){
             case 101:
-                createEditDialog(dt);
-                documentTAdapter.notifyItemChanged(item.getGroupId());
+                createEditDialog(s);
+                serviceAdapter.notifyItemChanged(item.getGroupId());
                 break;
             case 102:
-                if(dt.getStatus().equals("Activo")) dt.setStatus("Inactivo");
-                else    dt.setStatus("Activo");
-                update(dt);
-                documentTAdapter.notifyItemChanged(item.getGroupId());
+                if(s.getStatus().equals("Activo")) s.setStatus("Inactivo");
+                else    s.setStatus("Activo");
+                update(s);
+                serviceAdapter.notifyItemChanged(item.getGroupId());
                 break;
             case 103:
-                dt.setStatus("*");
-                listDocumentType.remove(dt);
-                delete(dt);
-                documentTAdapter.notifyItemRemoved(item.getGroupId());
+                s.setStatus("*");
+                listService.remove(s);
+                delete(s);
+                serviceAdapter.notifyItemRemoved(item.getGroupId());
                 break;
         }
         order(sp.getSelectedItemPosition());

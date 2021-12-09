@@ -4,16 +4,16 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DocumentType {
+public class Service {
     public String id;
     public String nombre;
     public String estado;
 
 
-    public DocumentType() {
+    public Service() {
     }
 
-    public DocumentType(String nombre, String estado) {
+    public Service(String nombre, String estado) {
         this.nombre = nombre;
         this.estado = estado;
     }
@@ -49,9 +49,9 @@ public class DocumentType {
         return map;
     }
 
-    public static Comparator<DocumentType> docNameAZComparator = (d1, d2) -> d1.getName().compareTo(d2.getName());
-    public static Comparator<DocumentType> docNameZAComparator = (d1, d2) -> d2.getName().compareTo(d1.getName());
-    public static Comparator<DocumentType> docStatusComparator = (d1, d2) -> d1.getStatus().compareTo(d2.getStatus());
+    public static Comparator<Service> serviceNameAZComparator = (s1, s2) -> s1.getName().compareTo(s2.getName());
+    public static Comparator<Service> serviceNameZAComparator = (s1, s2) -> s2.getName().compareTo(s1.getName());
+    public static Comparator<Service> serviceStatusComparator = (s1, s2) -> s1.getStatus().compareTo(s2.getStatus());
 
 
 }

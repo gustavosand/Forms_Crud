@@ -21,11 +21,11 @@
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Agregar usuario"
+                android:text="Agregar ficha de inscripcion"
                 android:textColor="#0C0C0C" />
 
             <EditText
-                android:id="@+id/addUser_name"
+                android:id="@+id/addForm_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -38,7 +38,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextTextLastname"
+                    android:id="@+id/addForm_lastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
@@ -47,7 +47,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/editTextTextLastName2"
+                    android:id="@+id/addForm_mothersLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
@@ -58,7 +58,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/addUser_cargo"
+                android:id="@+id/addForm_position"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -66,7 +66,7 @@
                 android:hint="Cargo" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/addForm_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="Correo"
@@ -75,7 +75,7 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/addUser_code"
+                android:id="@+id/addForm_telephone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -98,7 +98,7 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/spinner3"
+                    android:id="@+id/spinnerDoc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="00dp"
@@ -107,7 +107,7 @@
                     android:layout_weight=".60" />
 
                 <EditText
-                    android:id="@+id/addUser_code2"
+                    android:id="@+id/addForm_docNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".40"
@@ -126,7 +126,7 @@
                 android:textColor="#0C0C0C" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/spinnerSer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
@@ -143,7 +143,7 @@
                 android:textColor="#0C0C0C" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/spinnerCom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="00dp"
@@ -151,7 +151,7 @@
                 android:layout_marginBottom="0dp" />
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/addForm_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="Descripción"
@@ -161,20 +161,33 @@
                 android:hint="Descripción"
                 android:lines="2" />
 
+            <TextView
+                android:id="@+id/addForm_dateView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha: 2021-01-25 " />
+
+            <CheckBox
+                android:id="@+id/addForm_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Activo" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addUser_save_button"
+                    android:id="@+id/addForm_save_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="Guardar" />
 
                 <Button
-                    android:id="@+id/addUser_cancel_button"
+                    android:id="@+id/addForm_cancel_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"

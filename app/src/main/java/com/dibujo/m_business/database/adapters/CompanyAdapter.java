@@ -17,33 +17,35 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
-import com.dibujo.m_business.database.DocumentType;
+import com.dibujo.m_business.database.Company;
 
 import java.util.ArrayList;
 
-public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapter.DocumentTypeViewHolder> {
+public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.CompanyViewHolder> {
 
     Context contex;
-    ArrayList<DocumentType> list;
+    ArrayList<Company> list;
 
-    public DocumentTypeAdapter(Context contex, ArrayList<DocumentType> list) {
+    public CompanyAdapter(Context contex, ArrayList<Company> list) {
         this.contex = contex;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public DocumentTypeAdapter.DocumentTypeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(contex).inflate(R.layout.item_document, parent, false);
-        return new DocumentTypeAdapter.DocumentTypeViewHolder(v);
+    public CompanyAdapter.CompanyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(contex).inflate(R.layout.item_company, parent, false);
+        return new CompanyAdapter.CompanyViewHolder(v);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull DocumentTypeAdapter.DocumentTypeViewHolder holder, int position) {
-        DocumentType dt = list.get(position);
-        holder.statusT.setText(dt.getStatus());
-        holder.nameT.setText(dt.getName());
+    public void onBindViewHolder(@NonNull CompanyAdapter.CompanyViewHolder holder, int position) {
+        Company s = list.get(position);
+        holder.codeT.setText(s.getId());
+        holder.nameT.setText(s.getName());
+        holder.rucT.setText(s.getRuc());
+        holder.statusTS = s.getStatus();
     }
 
     @Override
@@ -51,16 +53,18 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
         return list.size();
     }
 
-    public static class DocumentTypeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-        TextView nameT, statusT;
+    public static class CompanyViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+        TextView nameT, codeT, rucT;
+        String statusTS;
         CardView cardView;
 
-        public DocumentTypeViewHolder(@NonNull View itemView) {
+        public CompanyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nameT = itemView.findViewById(R.id.documentType_name);
-            statusT = itemView.findViewById(R.id.documentType_status);
-            cardView = itemView.findViewById(R.id.cardview_document);
+            nameT = itemView.findViewById(R.id.company_name);
+            rucT = itemView.findViewById(R.id.company_ruc);
+            codeT = itemView.findViewById(R.id.company_code);
+            cardView = itemView.findViewById(R.id.cardview_company);
             cardView.setOnCreateContextMenuListener(this);
 
         }
@@ -68,15 +72,16 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
         @SuppressLint("ResourceType")
         @Override
         public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.add(this.getAdapterPosition(), 100, 0, "Ver");
             contextMenu.add(this.getAdapterPosition(), 101, 0, "Editar");
-            if(statusT.getText().equals("Activo")){
+            if(statusTS.equals("Activo")){
                 contextMenu.add(this.getAdapterPosition(), 102, 0, "Inactivar");
             }else{
                 contextMenu.add(this.getAdapterPosition(), 102, 0, "Activar");
             }
 
             contextMenu.add(this.getAdapterPosition(), 103, 0, "Eliminar");
-            MenuItem item = contextMenu.getItem(2);
+            MenuItem item = contextMenu.getItem(3);
             SpannableString spanString = new SpannableString(item.getTitle());
             spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0);
             item.setTitle(spanString);
@@ -84,3 +89,4 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
     }
 
 }
+

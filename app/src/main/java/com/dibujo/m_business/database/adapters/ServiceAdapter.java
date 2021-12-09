@@ -17,33 +17,33 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
-import com.dibujo.m_business.database.DocumentType;
+import com.dibujo.m_business.database.Service;
 
 import java.util.ArrayList;
 
-public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapter.DocumentTypeViewHolder> {
+public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
     Context contex;
-    ArrayList<DocumentType> list;
+    ArrayList<Service> list;
 
-    public DocumentTypeAdapter(Context contex, ArrayList<DocumentType> list) {
+    public ServiceAdapter(Context contex, ArrayList<Service> list) {
         this.contex = contex;
         this.list = list;
     }
 
     @NonNull
     @Override
-    public DocumentTypeAdapter.DocumentTypeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(contex).inflate(R.layout.item_document, parent, false);
-        return new DocumentTypeAdapter.DocumentTypeViewHolder(v);
+    public ServiceAdapter.ServiceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(contex).inflate(R.layout.item_service, parent, false);
+        return new ServiceAdapter.ServiceViewHolder(v);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull DocumentTypeAdapter.DocumentTypeViewHolder holder, int position) {
-        DocumentType dt = list.get(position);
-        holder.statusT.setText(dt.getStatus());
-        holder.nameT.setText(dt.getName());
+    public void onBindViewHolder(@NonNull ServiceAdapter.ServiceViewHolder holder, int position) {
+        Service s = list.get(position);
+        holder.statusT.setText(s.getStatus());
+        holder.nameT.setText(s.getName());
     }
 
     @Override
@@ -51,16 +51,16 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
         return list.size();
     }
 
-    public static class DocumentTypeViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+    public static class ServiceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         TextView nameT, statusT;
         CardView cardView;
 
-        public DocumentTypeViewHolder(@NonNull View itemView) {
+        public ServiceViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nameT = itemView.findViewById(R.id.documentType_name);
-            statusT = itemView.findViewById(R.id.documentType_status);
-            cardView = itemView.findViewById(R.id.cardview_document);
+            nameT = itemView.findViewById(R.id.service_name);
+            statusT = itemView.findViewById(R.id.service_status);
+            cardView = itemView.findViewById(R.id.cardview_service);
             cardView.setOnCreateContextMenuListener(this);
 
         }
@@ -84,3 +84,4 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
     }
 
 }
+

@@ -25,11 +25,11 @@
                 android:textColor="#0C0C0C" />
 
             <EditText
-                android:id="@+id/addDocumentType_name"
+                android:id="@+id/addService_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nombre de documento"
+                android:hint="Nombre de servicio"
                 android:inputType="textPersonName" />
 
             <LinearLayout
@@ -41,7 +41,7 @@
 
 
             <CheckBox
-                android:id="@+id/addCompany_status"
+                android:id="@+id/addService_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -54,14 +54,14 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addDocumentType_save_button"
+                    android:id="@+id/addService_save_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
                     android:text="Guardar" />
 
                 <Button
-                    android:id="@+id/addDocumentType_cancel_button"
+                    android:id="@+id/addService_cancel_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".50"
