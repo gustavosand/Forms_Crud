@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
 import com.dibujo.m_business.database.Company;
 import com.dibujo.m_business.database.DocumentType;
 import com.dibujo.m_business.database.Form;
@@ -43,13 +45,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FormFragment extends Fragment {
+public class FormFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private FormViewModel formViewModel;
     private FragmentFormBinding binding;
     private AlertDialog.Builder aBuilder;
     private AlertDialog dialog;
     private Spinner sp;
+
+    SearchView search;
 
     EditText nameET;
     EditText lastNameET;
@@ -92,7 +96,8 @@ public class FormFragment extends Fragment {
             createAddDialog();
         });
 
-
+        search = binding.formSearch;
+        search.setOnQueryTextListener(this);
         sp = binding.spinnerOrder;
 
         String[] optionsOrder = {"Nombre A-Z","Nombre Z-A", "Fecha reciente", "Fecha antiguo", "Estado"};
@@ -131,6 +136,8 @@ public class FormFragment extends Fragment {
 
                     listForm.add(s);
                 }
+                BackupList.listFormBackup.clear();
+                BackupList.listFormBackup.addAll(listForm);
                 order(sp.getSelectedItemPosition());
             }
 
@@ -577,8 +584,22 @@ public class FormFragment extends Fragment {
                 formAdapter.notifyItemRemoved(item.getGroupId());
                 break;
         }
+        BackupList.listFormBackup.clear();
+        BackupList.listFormBackup.addAll(listForm);
         order(sp.getSelectedItemPosition());
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        formAdapter.filtered(s);
+        order(sp.getSelectedItemPosition());
+        return false;
     }
 }
 //using date...(DELETE THIS COMMENT)

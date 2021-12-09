@@ -18,6 +18,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
+import com.dibujo.m_business.database.DocumentType;
 import com.dibujo.m_business.database.Form;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder> {
 
@@ -121,5 +125,30 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
         }
     }
 
-}
+    @SuppressLint("NotifyDataSetChanged")
+    public void filtered(String txt){
+        int len = txt.length();
+        if(len == 0){
+            list.clear();
+            list.addAll(BackupList.listFormBackup);
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<Form> coll = list.stream()
+                        .filter(i -> i.getName().toLowerCase().contains(txt.toLowerCase()))
+                        .collect(Collectors.toList());
+                list.clear();
+                list.addAll(coll);
+            }else{
+                list.clear();
+                for (Form dt: BackupList.listFormBackup) {
+                    if(dt.getName().toLowerCase().contains(txt.toLowerCase())){
+                        list.add(dt);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
 
+    }
+
+}

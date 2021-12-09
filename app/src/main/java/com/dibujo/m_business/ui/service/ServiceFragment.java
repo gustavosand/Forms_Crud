@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
 import com.dibujo.m_business.database.Service;
 import com.dibujo.m_business.database.Service;
 import com.dibujo.m_business.database.adapters.ServiceAdapter;
@@ -37,13 +39,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServiceFragment extends Fragment {
+public class ServiceFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private ServiceViewModel serviceViewModel;
     private FragmentServiceBinding binding;
     private AlertDialog.Builder aBuilder;
     private AlertDialog dialog;
     private Spinner sp;
+
+    SearchView search;
+
     EditText nameET;
     CheckBox statusCB;
 
@@ -66,7 +71,8 @@ public class ServiceFragment extends Fragment {
             createAddDialog();
         });
 
-
+        search = binding.serSearch;
+        search.setOnQueryTextListener(this);
         sp = binding.spinnerOrder;
 
         String[] optionsOrder = {"Nombre A-Z","Nombre Z-A", "Estado"};
@@ -101,6 +107,8 @@ public class ServiceFragment extends Fragment {
                     s.setId(ds.getKey());
                     listService.add(s);
                 }
+                BackupList.listServiceBackup.clear();
+                BackupList.listServiceBackup.addAll(listService);
                 order(sp.getSelectedItemPosition());
             }
 
@@ -254,7 +262,21 @@ public class ServiceFragment extends Fragment {
                 serviceAdapter.notifyItemRemoved(item.getGroupId());
                 break;
         }
+        BackupList.listServiceBackup.clear();
+        BackupList.listServiceBackup.addAll(listService);
         order(sp.getSelectedItemPosition());
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        serviceAdapter.filtered(s);
+        order(sp.getSelectedItemPosition());
+        return false;
     }
 }

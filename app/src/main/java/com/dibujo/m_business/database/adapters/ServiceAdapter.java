@@ -17,9 +17,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
+import com.dibujo.m_business.database.DocumentType;
 import com.dibujo.m_business.database.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
@@ -81,6 +85,32 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
             spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0);
             item.setTitle(spanString);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filtered(String txt){
+        int len = txt.length();
+        if(len == 0){
+            list.clear();
+            list.addAll(BackupList.listServiceBackup);
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<Service> coll = list.stream()
+                        .filter(i -> i.getName().toLowerCase().contains(txt.toLowerCase()))
+                        .collect(Collectors.toList());
+                list.clear();
+                list.addAll(coll);
+            }else{
+                list.clear();
+                for (Service dt: BackupList.listServiceBackup) {
+                    if(dt.getName().toLowerCase().contains(txt.toLowerCase())){
+                        list.add(dt);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+
     }
 
 }

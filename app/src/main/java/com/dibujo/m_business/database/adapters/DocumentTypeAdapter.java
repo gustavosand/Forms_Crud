@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -17,9 +18,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
 import com.dibujo.m_business.database.DocumentType;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapter.DocumentTypeViewHolder> {
 
@@ -81,6 +85,32 @@ public class DocumentTypeAdapter extends RecyclerView.Adapter<DocumentTypeAdapte
             spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0);
             item.setTitle(spanString);
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void filtered(String txt){
+        int len = txt.length();
+        if(len == 0){
+            list.clear();
+            list.addAll(BackupList.listDocumentBackup);
+        }else{
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                List<DocumentType> coll = list.stream()
+                        .filter(i -> i.getName().toLowerCase().contains(txt.toLowerCase()))
+                        .collect(Collectors.toList());
+                list.clear();
+                list.addAll(coll);
+            }else{
+                list.clear();
+                for (DocumentType dt: BackupList.listDocumentBackup) {
+                    if(dt.getName().toLowerCase().contains(txt.toLowerCase())){
+                        list.add(dt);
+                    }
+                }
+            }
+        }
+        notifyDataSetChanged();
+
     }
 
 }

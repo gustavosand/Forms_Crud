@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
 import com.dibujo.m_business.database.Company;
 import com.dibujo.m_business.database.adapters.CompanyAdapter;
 import com.dibujo.m_business.databinding.FragmentCompanyBinding;
@@ -39,13 +41,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompanyFragment extends Fragment {
+public class CompanyFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private CompanyViewModel companyViewModel;
     private FragmentCompanyBinding binding;
     private AlertDialog.Builder aBuilder;
     private AlertDialog dialog;
     private Spinner sp;
+
+    SearchView search;
+
     EditText nameET;
     EditText addressET;
     EditText rucET;
@@ -72,7 +77,8 @@ public class CompanyFragment extends Fragment {
             createAddDialog();
         });
 
-
+        search = binding.comSearch;
+        search.setOnQueryTextListener(this);
         sp = binding.spinnerOrder;
 
         String[] optionsOrder = {"Nombre A-Z","Nombre Z-A", "Estado"};
@@ -107,7 +113,10 @@ public class CompanyFragment extends Fragment {
                     s.setId(ds.getKey());
                     listCompany.add(s);
                 }
+                BackupList.listCompanyBackup.clear();
+                BackupList.listCompanyBackup.addAll(listCompany);
                 order(sp.getSelectedItemPosition());
+
             }
 
             @Override
@@ -294,7 +303,22 @@ public class CompanyFragment extends Fragment {
                 companyAdapter.notifyItemRemoved(item.getGroupId());
                 break;
         }
+
+        BackupList.listCompanyBackup.clear();
+        BackupList.listCompanyBackup.addAll(listCompany);
         order(sp.getSelectedItemPosition());
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        companyAdapter.filtered(s);
+        order(sp.getSelectedItemPosition());
+        return false;
     }
 }

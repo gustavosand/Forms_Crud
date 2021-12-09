@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dibujo.m_business.R;
+import com.dibujo.m_business.database.BackupList;
 import com.dibujo.m_business.database.DocumentType;
 import com.dibujo.m_business.database.adapters.DocumentTypeAdapter;
 import com.dibujo.m_business.databinding.FragmentTipodocBinding;
@@ -34,13 +36,16 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TipoDocFragment extends Fragment {
+public class TipoDocFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private TipoDocViewModel tipodocViewModel;
     private FragmentTipodocBinding binding;
     private AlertDialog.Builder aBuilder;
     private AlertDialog dialog;
     private Spinner sp;
+
+    SearchView search;
+
     EditText nameET;
     CheckBox statusCB;
 
@@ -64,7 +69,8 @@ public class TipoDocFragment extends Fragment {
             createAddDialog();
         });
 
-
+        search = binding.docSearch;
+        search.setOnQueryTextListener(this);
         sp = binding.spinnerOrder;
 
         String[] optionsOrder = {"Nombre A-Z","Nombre Z-A", "Estado"};
@@ -99,6 +105,8 @@ public class TipoDocFragment extends Fragment {
                     dt.setId(ds.getKey());
                     listDocumentType.add(dt);
                 }
+                BackupList.listDocumentBackup.clear();
+                BackupList.listDocumentBackup.addAll(listDocumentType);
                 order(sp.getSelectedItemPosition());
             }
 
@@ -252,7 +260,23 @@ public class TipoDocFragment extends Fragment {
                 documentTAdapter.notifyItemRemoved(item.getGroupId());
                 break;
         }
+
+        BackupList.listDocumentBackup.clear();
+        BackupList.listDocumentBackup.addAll(listDocumentType);
         order(sp.getSelectedItemPosition());
         return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        documentTAdapter.filtered(s);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        documentTAdapter.filtered(s);
+        order(sp.getSelectedItemPosition());
+        return false;
     }
 }
