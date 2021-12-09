@@ -81,6 +81,17 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormViewHolder
             }
         });
 
+        db.getReference("documento_identidad").child(s.getDocument()).child("nombre").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                s.setDocumentName(snapshot.getValue(String.class));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("PRUEBA", ": "+error);
+            }
+        });
+
         holder.statusTS = s.getStatus();
     }
 

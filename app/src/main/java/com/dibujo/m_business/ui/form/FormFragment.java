@@ -523,7 +523,7 @@ public class FormFragment extends Fragment implements SearchView.OnQueryTextList
         positionTV.setText(s.getPosition());
         emailTV.setText(s.getEmail());
         telephoneTV.setText(s.getTelephone());
-        docNumberTV.setText(s.getDocumentNumber());
+        docNumberTV.setText(s.getDocumentName()+" N°: " + s.getDocumentNumber());
         serviceTV.setText(s.getServiceName());
         companyTV.setText(s.getCompanyName());
         descriptionTV.setText(s.getDescription());

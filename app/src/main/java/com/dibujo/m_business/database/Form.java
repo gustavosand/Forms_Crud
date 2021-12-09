@@ -25,6 +25,7 @@ public class Form {
 
     public String serviceName;
     public String companyName;
+    public String documentName;
 
     public Form() {
     }
@@ -170,6 +171,14 @@ public class Form {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getDocumentName() {
+        return documentName;
+    }
+
+    public void setDocumentName(String documentName) {
+        this.documentName = documentName;
     }
 
     public Map<String, Object> toMap(){
